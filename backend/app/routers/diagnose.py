@@ -12,13 +12,13 @@ router = APIRouter(prefix="/api/diagnose", tags=["服务健康诊断"])
 
 service = DiagnoseService()
 
-LIST_FIELDS = ["报告编号", "诊断对象", "健康分值", "异常类型", "根因分析", "修复建议", "诊断耗时", "诊断时间"]
+LIST_FIELDS = ["报告编号", "诊断对象", "健康分值", "异常类型", "异常证据", "根因分析", "修复建议", "诊断耗时", "诊断时间", "批次号", "版本"]
 STATUSES = ["草稿", "诊断中", "已生成", "已处理"]
 
 
 @router.get("", response_model=PageResult[dict])
 def list_entries(
-    keyword: str | None = Query(default=None, description="按报告编号检索"),
+    keyword: str | None = Query(default=None, description="按报告编号或诊断对象检索"),
     status: str | None = Query(default=None, description="草稿、诊断中、已生成、已处理"),
     page: int = 1,
     size: int = 20,

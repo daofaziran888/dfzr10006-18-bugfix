@@ -12,13 +12,13 @@ router = APIRouter(prefix="/api/trace", tags=["调用链追踪"])
 
 service = TraceService()
 
-LIST_FIELDS = ["记录编号", "调用链ID", "服务名称", "调用耗时", "调用状态", "上游服务", "下游服务", "采样时间"]
+LIST_FIELDS = ["记录编号", "调用链ID", "服务名称", "调用耗时", "调用状态", "上游服务", "下游服务", "采样时间", "关联报告", "健康分值"]
 STATUSES = ["已采样", "已分析", "已归档"]
 
 
 @router.get("", response_model=PageResult[dict])
 def list_entries(
-    keyword: str | None = Query(default=None, description="按记录编号检索"),
+    keyword: str | None = Query(default=None, description="按记录编号或服务名称检索"),
     status: str | None = Query(default=None, description="已采样、已分析、已归档"),
     page: int = 1,
     size: int = 20,
